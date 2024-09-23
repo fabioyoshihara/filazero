@@ -42,3 +42,16 @@ Fim
 /acompanhamento.php Acompanhamento
 /historico.php Pedidos
 /cliente/form.php Cadastro
+
+
+
+Carrinho
+- verificar se a variável pedido existe
+se não existir: não mostrar o pedido e exibir "não há pedidos no seu carrinho"
+- botão "continuar comprando"
+
+
+Home
+- link para carrinho
+- clicando comprar -> redirecionar para carrinho.
+- ler o pedido existente caso exista se existir fazer um count e imprimir dentro do botao carrinho Carrinho (5)

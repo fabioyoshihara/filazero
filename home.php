@@ -31,6 +31,8 @@ else
 
         $existe =  $pedidoRepositorio->existe($_POST['codigoCliente']);
 
+        
+
         if ($existe != null)
         {
             $pedidoRepositorio->salvarProdutoPedido($existe, $_POST['codigoProduto'], $_POST['qtde']);
@@ -41,6 +43,9 @@ else
             $existe =  $pedidoRepositorio->existe($_POST['codigoCliente']);
             $pedidoRepositorio->salvarProdutoPedido($existe, $_POST['codigoProduto'], $_POST['qtde']);
         }
+
+        header("Location: carrinho.php");
+        exit();
     }
 }
 
@@ -69,6 +74,7 @@ else
         <h2>Olá, <?=$_SESSION["nome"];?>!</h2>
         <h2>O que vai querer?</h2>    
         <a class="botao-cadastrar" href="logoff.php">Logoff</a><br>
+        <a class="botao-cadastrar" href="carrinho.php">carrinho</a>
     </section>
 
         <section class="container-banner">

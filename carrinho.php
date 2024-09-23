@@ -8,6 +8,21 @@ if ($_SESSION["nome"] == null)
 }
 else{
   
+  require "src/conexao-bd.php";
+  require "src/Modelo/Carrinho.php";
+  require "src/Repositorio/carrinhoRepositorio.php";
+  require "src/Repositorio/pedidoRepositorio.php";
+
+  $pedidoRepositorio = new pedidoRepositorio($pdo);
+  $existe =  $pedidoRepositorio->existe($_SESSION["codigo"]);
+
+  $precoTotal = 0;
+
+  if ($existe != null)
+  {
+    $carrinhoRepositorio = new carrinhoRepositorio($pdo);
+    $pedido = $carrinhoRepositorio->buscarPedido($existe); 
+  }
 
 }
 ?>
@@ -35,31 +50,59 @@ else{
 <main>
   <section class="container-admin-banner">
     <img src="img/logo_fila_zero.svg" class="logo-admin" alt="logo-filazero">
-    <h1>Carrinho.php</h1>
+    <h1>Carrinho</h1>
     <img class= "ornaments" src="img/ornaments-filazero.svg" alt="ornaments">
   
-    <table>
-                <tr>
-                  <th>código do pedido</th>
-                  <th>produto</th> 
-                  <th>quantidade</th> 
-                  <th>preço unitário</th>
-                  <th>preço total</th>
 
-                </tr>
+    <?php
+if (isset($pedido)) {
+    ?>
+    <table>
+        <thead>
+            <tr>
+                <th>Código do Pedido</th>
+                <th>Nome do Produto</th>
+                <th>Quantidade</th>
+                <th>Preço Unitário</th>
+                <th>Preço Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $precoTotal = 0;
+            foreach ($pedido as $carrinho):
+                $precoTotal += $carrinho->getprecoTotal();
+            ?>
                 <tr>
-                    <td>#001</td>
-                    <td>Canjica</td>
-                    <td>04</td>
-                    <td>R$12,00</td>
-                    <td>R$48,00</td>
-                    <td><button>limpar</button></td>
+                    <td><?= $carrinho->getcodigoPedido() ?></td>
+                    <td><?= $carrinho->getnomeProduto() ?></td>
+                    <td><?= $carrinho->getqtde() ?></td>
+                    <td><?= $carrinho->getprecoProduto() ?></td>
+                    <td><?= $carrinho->getprecoTotal() ?></td>
                 </tr>
+            <?php endforeach; ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4">Total:</td>
+                <td><?= $precoTotal ?></td>
+            </tr>
+        </tfoot>
     </table>
-            <h3>total<input type="text" id="total" name="total" placeholder="total a pagar"></h3>
+    <?php
+} else {
+    echo "Seu carrinho está vazio!";
+}
+?>  
+</table>
+
+            <h3>total: <?= $precoTotal ?></h3>
             
             <a href="pagamento.php">pagar</a><br>
             
-            <a href="home.php">continuar comprando</a>
+            <a class="botao-cadastrar" href="home.php">continuar comprando</a>
+
+
+
 
   </section>
