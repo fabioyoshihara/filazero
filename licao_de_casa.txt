@@ -1,0 +1,44 @@
+Buscar todas as $lojas 
+
+Listar For Each $lojas
+    Buscar os $produtos daquela loja
+    
+    Nome da Loja 1
+
+    Listar For Each $produtos
+        Nome
+        Preço
+    Fim
+Fim
+
+
+
+
+
+
+
+/admin (Lojista)
+
+/admin/index.php Login
+/admin/home.php Opções
+/admin/producao.php Producao
+/admin/historico.php Pedidos
+/admin/recuperar_senha.php Recuperar
+
+/admin/cadastro/produto*
+/admin/cadastro/loja*
+/admin/cadastro/cliente*
+
+
+
+
+/ RAIZ (Cliente)
+
+/index.php Login
+/home.php Produtos para compra*
+/recuperar_senha.php Recuperar
+/carrinho.php Carrinho
+/pagamento.php Pagamento
+/acompanhamento.php Acompanhamento
+/historico.php Pedidos
+/cliente/form.php Cadastro
