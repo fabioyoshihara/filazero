@@ -1,8 +1,8 @@
 <?php
  
-    require "src/conexao-bd.php";
-    require "src/Modelo/Cliente.php";
-    require "src/Repositorio/ClienteRepositorio.php";
+    require "../../../src/conexao-bd.php";
+    require "../../../src/Modelo/Cliente.php";
+    require "../../../src/Repositorio/ClienteRepositorio.php";
 
     if (isset($_POST['cadastrocliente']))
     {

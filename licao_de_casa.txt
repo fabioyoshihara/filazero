@@ -46,12 +46,16 @@ Fim
 
 
 Carrinho
-- verificar se a variável pedido existe
+- verificar se a variável pedido existe ok
 se não existir: não mostrar o pedido e exibir "não há pedidos no seu carrinho"
-- botão "continuar comprando"
+- botão "continuar comprando" ok
+- criar botão deletar
 
 
 Home
-- link para carrinho
-- clicando comprar -> redirecionar para carrinho.
+- link para carrinho ok
+- clicando comprar -> redirecionar para carrinho. ok
 - ler o pedido existente caso exista se existir fazer um count e imprimir dentro do botao carrinho Carrinho (5)
+
+listar as trilhas
+Separar toda a documentação do projeto

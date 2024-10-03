@@ -57,38 +57,42 @@ else{
     <?php
 if (isset($pedido)) {
     ?>
-    <table>
-        <thead>
-            <tr>
-                <th>Código do Pedido</th>
-                <th>Nome do Produto</th>
-                <th>Quantidade</th>
-                <th>Preço Unitário</th>
-                <th>Preço Total</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $precoTotal = 0;
-            foreach ($pedido as $carrinho):
-                $precoTotal += $carrinho->getprecoTotal();
-            ?>
+    <section class="container-table">
+        <table>
+            <thead>
                 <tr>
-                    <td><?= $carrinho->getcodigoPedido() ?></td>
-                    <td><?= $carrinho->getnomeProduto() ?></td>
-                    <td><?= $carrinho->getqtde() ?></td>
-                    <td><?= $carrinho->getprecoProduto() ?></td>
-                    <td><?= $carrinho->getprecoTotal() ?></td>
+                    <th>Código do Pedido</th>
+                    <th>Nome do Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço Unitário</th>
+                    <th>Preço Total</th>
+                    <th></th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="4">Total:</td>
-                <td><?= $precoTotal ?></td>
-            </tr>
-        </tfoot>
-    </table>
+            </thead>
+            <tbody>
+                <?php
+                $precoTotal = 0;
+                foreach ($pedido as $carrinho):
+                    $precoTotal += $carrinho->getprecoTotal();
+                ?>
+                    <tr>
+                        <td><?= $carrinho->getcodigoPedido() ?></td>
+                        <td><?= $carrinho->getnomeProduto() ?></td>
+                        <td><?= $carrinho->getqtde() ?></td>
+                        <td><?= $carrinho->getprecoProduto() ?></td>
+                        <td><?= $carrinho->getprecoTotal() ?></td>
+                        <td><a class="botao-excluir" href="excluir.php?id=<?= $carrinho->getcodigoPedido() ?>&idproduto=<?=$carrinho->getcodigoProduto()?>">Excluir</a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="4">Total:</td>
+                    <td><?= $precoTotal ?></td>
+                </tr>
+            </tfoot>
+        </table>
+    </section>    
     <?php
 } else {
     echo "Seu carrinho está vazio!";
@@ -96,9 +100,9 @@ if (isset($pedido)) {
 ?>  
 </table>
 
-            <h3>total: <?= $precoTotal ?></h3>
             
-            <a href="pagamento.php">pagar</a><br>
+            
+            <a class="botao-cadastrar" href="pagamento.php">pagar</a><br>
             
             <a class="botao-cadastrar" href="home.php">continuar comprando</a>
 

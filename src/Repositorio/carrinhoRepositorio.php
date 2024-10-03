@@ -13,7 +13,8 @@
         private function formarobjeto($dados)
         {
         return new Carrinho
-            ($dados['cod_pedido'],
+            ($dados['cod_produto'],
+             $dados['cod_pedido'],
              $dados['nome_produto'],
              $dados['qtde'],
              $dados['preco_produto'],
@@ -24,7 +25,7 @@
 
         public function buscarPedido(int $cod_pedido)
         {
-            $sql = "select pedido.cod_pedido, produto.nome_produto, produto_pedido.qtde, produto.preco_produto, produto_pedido.qtde*produto.preco_produto as preco from produto, pedido, produto_pedido where produto_pedido.cod_pedido = pedido.cod_pedido and produto_pedido.cod_produto = produto.cod_produto and pedido.cod_pedido = ?";
+            $sql = "select produto_pedido.cod_produto, pedido.cod_pedido, produto.nome_produto, produto_pedido.qtde, produto.preco_produto, produto_pedido.qtde*produto.preco_produto as preco from produto, pedido, produto_pedido where produto_pedido.cod_pedido = pedido.cod_pedido and produto_pedido.cod_produto = produto.cod_produto and pedido.cod_pedido = ?";
             $statement = $this->pdo->prepare($sql);
             $statement->bindValue(1, $cod_pedido);
             $statement->execute();
@@ -36,9 +37,18 @@
                 },$dados);
 
             return $todosOsDados;
-    }
+        }
 
+        
+        public function deletar(int $id, int $idproduto)
+        {
+            $sql = "DELETE FROM produto_pedido WHERE cod_pedido = ? AND cod_produto = ?";
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(1,$id);
+            $statement->bindvalue(2,$idproduto);
+            $statement->execute();
 
+        }
 
     }        
     

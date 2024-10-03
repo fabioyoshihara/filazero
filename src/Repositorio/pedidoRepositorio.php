@@ -14,7 +14,8 @@
         private function formarobjeto($dados)
         {
         return new Pedido
-            ($dados['cod_pedido'],
+            ($dados['cod_produto'],
+             $dados['cod_pedido'],
              $dados['data'],
              $dados['cod_status'],
              $dados['cod_cliente']
@@ -55,7 +56,28 @@
             $statement->execute();
         }
 
+        public function existeProdutoPedido(int $codigoPedido, $codigoProduto)
+        {
+            $sql = "select cod_pedido from produto_pedido where cod_pedido = ? and cod_produto = ?";
 
-}        
-    
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(1, $codigoPedido);
+            $statement->bindValue(2, $codigoProduto);
+            $statement->execute();
+
+            $result = $statement->fetchColumn(); 
+            return $result;
+        } 
+        
+        public function atualizarProdutoPedido(int $codigoPedido, int $codigoProduto, int $qtde)
+        {
+            $sql = "update produto_pedido SET qtde = qtde + ? WHERE cod_pedido = ? and cod_produto = ?";
+            $statement = $this->pdo->prepare($sql);
+            $statement->bindValue(1, $qtde);
+            $statement->bindValue(2, $codigoPedido);
+            $statement->bindValue(3, $codigoProduto);
+            $statement->execute();
+        }
+
+    }  
 ?>

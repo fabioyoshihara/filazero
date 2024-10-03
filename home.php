@@ -27,7 +27,7 @@ else
 
         $pedidoRepositorio = new pedidoRepositorio($pdo);
 
-        $pedido = new Pedido (null, $_POST['codigoCliente'], 1, '');
+        $pedido = new Pedido (null, null, $_POST['codigoCliente'], 1, '');
 
         $existe =  $pedidoRepositorio->existe($_POST['codigoCliente']);
 
@@ -35,7 +35,15 @@ else
 
         if ($existe != null)
         {
-            $pedidoRepositorio->salvarProdutoPedido($existe, $_POST['codigoProduto'], $_POST['qtde']);
+            $produtoPedido = $pedidoRepositorio->existeProdutoPedido($existe, $_POST['codigoProduto']);
+            if ($produtoPedido == null)
+            {
+                $pedidoRepositorio->salvarProdutoPedido($existe, $_POST['codigoProduto'], $_POST['qtde']);
+            }
+            else
+            {
+                $pedidoRepositorio->atualizarProdutoPedido($existe, $_POST['codigoProduto'], $_POST['qtde']); 
+            }
         }
         else
         {
@@ -72,22 +80,19 @@ else
     <main>
     <section class="container-table"> 
         <h2>Olá, <?=$_SESSION["nome"];?>!</h2>
-        <h2>O que vai querer?</h2>    
-        <a class="botao-cadastrar" href="logoff.php">Logoff</a><br>
+        <h2>O que vai querer?</h2>
+      
+        <div class="container-flex">     
+        <a class="botao-cadastrar" href="logoff.php">Logoff</a>
         <a class="botao-cadastrar" href="carrinho.php">carrinho</a>
+        </div>
+    </section> 
+    <section class="container-admin-banner">
+        <img src="img/logo_fila_zero.svg" class="logo-admin" alt="logo-filazero">
+      
     </section>
 
-        <section class="container-banner">
-            <div class="">
-                
-            </div>
-        </section>
-
-
-        
-    
-
-        <?php foreach ($lojas as $loja):?>
+       <?php foreach ($lojas as $loja):?>
             <?php
                     $produtos = $produtoRepositorio->buscarprodutoloja($loja->getCodigo()); 
             ?>
@@ -98,23 +103,35 @@ else
                     <img class= "ornaments" src="img/ornaments-filazero.svg" alt="ornaments">    
                 </div>
                 <div class="container-cafe-manha-produtos">
-                <?php foreach ($produtos as $produto):?>
-                    <form method="post">
-                        <input type="hidden" name="codigoProduto" value="<?=$produto->getcodigoProduto()?>">
-                        <input type="hidden" name="codigoCliente" value="<?=$_SESSION["codigo"]?>">
-                        <input type="hidden" name="qtde" value="1">
-                        <div class="container-produto">
-                            <div class="container-foto">
-                            <img src="<?= $produto->getImagemDiretorio()?>">
-                            </div>
-                            <p><?= $produto->getNome()?></p>
-                            <p><?= $produto->getDescricao()?></p>
-                            <p><?= $produto->getPrecoFormatado() ?></p>
-                            <input type="submit" name="botaoComprar" class="botao-cadastrar" value="Comprar"/>
-                            <br>
-                        </div>
-                    </form>
-                    <?php endforeach; ?>
+                        <?php foreach ($produtos as $produto):?>
+                            <form method="post">
+                                <input type="hidden" name="codigoProduto" value="<?=$produto->getcodigoProduto()?>">
+                                <input type="hidden" name="codigoCliente" value="<?=$_SESSION["codigo"]?>">
+                                <input type="hidden" name="qtde" value="1">
+                                <div class="container-produto">
+                                    <div class="container-foto">
+                                        <img src="<?= $produto->getImagemDiretorio()?>">
+                                    </div>
+                                        <p><?= $produto->getNome()?></p>
+                                        <p><?= $produto->getDescricao()?></p>
+                                        <p><?= $produto->getPrecoFormatado() ?></p>
+                                        
+                                        
+                                        <label class= "container-cafe-manha-produtos" for="unidades">escolha a quantidade:</label>
+                                        <br>
+
+                                        <div  
+                                            class="botao-quantidade">
+                                    
+                                                <input type="number" name="qtde" id="qtde" value="1" min="1">
+                                               
+                                        </div>
+
+                                        <input type="submit" name="botaoComprar" class="botao-cadastrar" value="Comprar"/>
+                                        <br>
+                                </div>
+                            </form>
+                        <?php endforeach; ?>
                 </div>
             </section>
 
@@ -123,5 +140,9 @@ else
 
         
     </main>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-maskmoney/3.0.2/jquery.maskMoney.min.js" integrity="sha512-Rdk63VC+1UYzGSgd3u2iadi0joUrcwX0IWp2rTh6KXFoAmgOjRS99Vynz1lJPT8dLjvo6JZOqpAHJyfCEZ5KoA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="js/index.js"></script>
 </body>
 </html>

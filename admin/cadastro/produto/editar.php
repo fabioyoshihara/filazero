@@ -1,10 +1,10 @@
 <?php 
     
-    require "src/conexao-bd.php";
-    require "src/Modelo/produto.php";
-    require "src/Repositorio/produtoRepositorio.php";
-    require "src/Modelo/loja.php";
-    require "src/Repositorio/lojaRepositorio.php";
+    require "../../../src/conexao-bd.php";
+    require "../../../src/Modelo/produto.php";
+    require "../../../src/Repositorio/produtoRepositorio.php";
+    require "../../../src/Modelo/loja.php";
+    require "../../../src/Repositorio/lojaRepositorio.php";
 
     if (isset($_POST['cadastroproduto']))
     {

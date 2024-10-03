@@ -20,6 +20,14 @@ h2{
     font-size: 24px;
 }
 
+.container-flex{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: center;
+    
+  
+}
 .container-table{
     display: flex;
     align-items: center;
@@ -129,4 +137,14 @@ table tbody tr td a:hover, .botao-cadastrar:hover, .botao-excluir:hover, .botao-
 
 .botao-excluir{
     background: crimson;
+}
+
+.botao-quantidade{
+    width: 30px;
+    height: 30px;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+ 
+   
 }

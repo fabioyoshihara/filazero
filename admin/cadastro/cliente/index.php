@@ -1,8 +1,8 @@
 <?php
     
     $pdo = new PDO('mysql:host=localhost;dbname=filazero', 'filazero', 'filazero');
-    require "src/Modelo/Cliente.php";
-    require "src/Repositorio/clienteRepositorio.php";
+    require "../../../src/Modelo/Cliente.php";
+    require "../../../src/Repositorio/clienteRepositorio.php";
  
     $clienteRepositorio = new ClienteRepositorio($pdo);
     $clientes = $clienteRepositorio->buscarTodos();
